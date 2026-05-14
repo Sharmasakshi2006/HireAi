@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Voice AI Interview</title>
+
+    <style>
+
+        body{
+            margin:0;
+            font-family:Arial;
+            background:#f4f4f4;
+        }
+
+        .container{
+            width:700px;
+            margin:50px auto;
+            background:white;
+            padding:40px;
+            border-radius:10px;
+            text-align:center;
+            box-shadow:0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h1{
+            color:#2952e3;
+        }
+
+        button{
+            width:100%;
+            padding:15px;
+            margin-top:20px;
+            background:#2952e3;
+            color:white;
+            border:none;
+            border-radius:8px;
+            font-size:18px;
+            cursor:pointer;
+        }
+
+        .question-box{
+            margin-top:30px;
+            padding:20px;
+            background:#f1f1f1;
+            border-radius:10px;
+            font-size:24px;
+            font-weight:bold;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🎤 Voice AI Interview</h1>
+
+    <button onclick="startInterview()">
+        Start Interview
+    </button>
+
+    <div class="question-box" id="questionBox">
+
+        Click button to start interview
+
+    </div>
+
+</div>
+
+<script>
+
+let questions = [
+
+    "Tell me about yourself.",
+
+    "What is Python?",
+
+    "Explain Django framework.",
+
+    "What are your strengths?",
+
+    "Why should we hire you?"
+
+];
+
+let current = 0;
+
+function startInterview(){
+
+    if(current >= questions.length){
+
+        document.getElementById("questionBox")
+        .innerHTML =
+        "Interview Completed 🎉";
+
+        return;
+    }
+
+    let question = questions[current];
+
+    document.getElementById("questionBox")
+    .innerHTML = question;
+
+    let speech =
+    new SpeechSynthesisUtterance(question);
+
+    speechSynthesis.speak(speech);
+
+    current++;
+
+}
+
+</script>
+
+</body>
+
+</html>

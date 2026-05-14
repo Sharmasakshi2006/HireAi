@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Student Progress</title>
+
+    <style>
+
+        body{
+            margin:0;
+            font-family:Arial;
+            background:#f4f4f4;
+        }
+
+        .container{
+            width:700px;
+            margin:50px auto;
+            background:white;
+            padding:40px;
+            border-radius:10px;
+            box-shadow:0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h1{
+            text-align:center;
+            color:#2952e3;
+        }
+
+        .task{
+            margin-top:20px;
+            font-size:20px;
+        }
+
+        .progress-box{
+            width:100%;
+            background:#ddd;
+            height:35px;
+            border-radius:20px;
+            overflow:hidden;
+            margin-top:30px;
+        }
+
+        .progress-bar{
+            height:35px;
+            width:0%;
+            background:#2952e3;
+            text-align:center;
+            color:white;
+            line-height:35px;
+            transition:0.5s;
+        }
+
+        button{
+            width:100%;
+            padding:14px;
+            margin-top:20px;
+            border:none;
+            background:#2952e3;
+            color:white;
+            font-size:18px;
+            border-radius:8px;
+            cursor:pointer;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Student Progress Tracker 📊</h1>
+
+    <div class="task">
+        <input type="checkbox" class="task-check"> Resume Uploaded
+    </div>
+
+    <div class="task">
+        <input type="checkbox" class="task-check"> Interview Practice
+    </div>
+
+    <div class="task">
+        <input type="checkbox" class="task-check"> Quiz Completed
+    </div>
+
+    <div class="task">
+        <input type="checkbox" class="task-check"> Career Analysis
+    </div>
+
+    <button onclick="calculateProgress()">
+        Calculate Progress
+    </button>
+
+    <div class="progress-box">
+
+        <div class="progress-bar" id="progressBar">
+            0%
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+function calculateProgress(){
+
+    let checks =
+    document.querySelectorAll(".task-check");
+
+    let completed = 0;
+
+    checks.forEach(function(check){
+
+        if(check.checked){
+            completed++;
+        }
+
+    });
+
+    let total = checks.length;
+
+    let percent =
+    (completed / total) * 100;
+
+    let progressBar =
+    document.getElementById("progressBar");
+
+    progressBar.style.width =
+    percent + "%";
+
+    progressBar.innerHTML =
+    percent + "%";
+
+}
+
+</script>
+
+</body>
+
+</html>
