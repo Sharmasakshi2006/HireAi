@@ -1,99 +1,96 @@
-const signupForm = document.getElementById("signupForm");
+document.addEventListener("DOMContentLoaded", () => {
 
-if (signupForm) {
+    // =========================
+    // SIGNUP
+    // =========================
+    const signupForm = document.getElementById("signupForm");
 
-    signupForm.addEventListener("submit", async function (e) {
+    if (signupForm) {
+        signupForm.addEventListener("submit", async (event) => {
+            event.preventDefault();
 
-        e.preventDefault();
+            const username = document.getElementById("username").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
 
-        const name = document.getElementById("name").value;
-        const email = document.getElementById("email").value;
-        const password = document.getElementById("password").value;
+            try {
+                const response = await fetch(
+                    "https://hireai-1-6nz5.onrender.com/api/signup/",
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            username: username,
+                            email: email,
+                            password: password,
+                        }),
+                    }
+                );
 
-        try {
+                const data = await response.json();
 
-            const response = await fetch("http://127.0.0.1:8000/api/signup/", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    name: name,
-                    email: email,
-                    password: password
-                })
-            });
+                console.log(data);
 
-            const data = await response.json();
-
-            if (response.ok) {
-
-                alert(data.message);
-
-                window.location.href = "login.html";
-
-            } else {
-
-                alert(data.error);
-
+                if (response.ok) {
+                    alert("Signup successful!");
+                    window.location.href = "login.html";
+                } else {
+                    alert(data.error || "Signup failed");
+                }
+            } catch (error) {
+                console.error("Signup Error:", error);
+                alert("Server error during signup");
             }
+        });
+    }
 
-        } catch (error) {
+    // =========================
+    // LOGIN
+    // =========================
+    const loginForm = document.getElementById("loginForm");
 
-            console.log(error);
+    if (loginForm) {
+        loginForm.addEventListener("submit", async (event) => {
+            event.preventDefault();
 
-            alert("Signup failed");
+            const email = document.getElementById("loginEmail").value;
+            const password = document.getElementById("loginPassword").value;
 
-        }
+            try {
+                const response = await fetch(
+                    "https://hireai-1-6nz5.onrender.com/api/login/",
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            email: email,
+                            password: password,
+                        }),
+                    }
+                );
 
-    });
+                const data = await response.json();
 
-}
+                console.log(data);
 
+                if (response.ok) {
+                    alert("Login successful!");
 
-// LOGIN
+                    localStorage.setItem("user", JSON.stringify(data));
 
-const loginForm = document.getElementById("loginForm");
-
-if(loginForm){
-
-loginForm.addEventListener("submit", async function(e){
-
-    e.preventDefault();
-
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-
-    const response = await fetch("http://127.0.0.1:8000/api/login/",{
-
-        method:"POST",
-
-        headers:{
-            "Content-Type":"application/json"
-        },
-
-        body:JSON.stringify({
-            email:email,
-            password:password
-        })
-
-    });
-
-    const data = await response.json();
-
-    if(data.message){
-
-        localStorage.setItem("userEmail", email);
-
-        alert("Login successful");
-
-        window.location.href = "dashboard.html";
-
-    }else{
-
-        alert("Login failed");
-
+                    window.location.href = "dashboard.html";
+                } else {
+                    alert(data.error || "Login failed");
+                }
+            } catch (error) {
+                console.error("Login Error:", error);
+                alert("Server error during login");
+            }
+        });
     }
 
 });
-}
