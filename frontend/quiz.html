@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>HireAI Quiz</title>
+
+    <style>
+
+        body{
+            font-family:Arial;
+            background:#f4f4f4;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            height:100vh;
+        }
+
+        .quiz-box{
+            background:white;
+            padding:40px;
+            border-radius:15px;
+            width:550px;
+        }
+
+        h1{
+            text-align:center;
+            color:#2d5be3;
+        }
+
+        #timer{
+            text-align:right;
+            font-size:20px;
+            color:red;
+            font-weight:bold;
+        }
+
+        .question{
+            margin-top:20px;
+            font-size:20px;
+        }
+
+        .option{
+            background:#f1f1f1;
+            padding:12px;
+            margin-top:10px;
+            border-radius:8px;
+            cursor:pointer;
+        }
+
+        .option:hover{
+            background:#dfe7ff;
+        }
+
+        button{
+            width:100%;
+            padding:12px;
+            margin-top:20px;
+            background:#2d5be3;
+            color:white;
+            border:none;
+            border-radius:8px;
+            cursor:pointer;
+        }
+
+        input{
+            width:100%;
+            padding:12px;
+            margin-top:15px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="quiz-box">
+
+    <h1>HireAI Quiz 🚀</h1>
+
+    <div id="timer">Time Left: 30s</div>
+
+    <input type="text" id="username" placeholder="Enter Your Name">
+
+    <div id="quiz"></div>
+
+    <button onclick="nextQuestion()">Next</button>
+
+</div>
+
+<script>
+
+const questions = [
+
+    {
+        question:"What does HTML stand for?",
+        options:[
+            "HyperText Markup Language",
+            "HighText Machine Language",
+            "Home Tool Markup Language",
+            "Hyper Transfer Language"
+        ],
+        answer:"HyperText Markup Language"
+    },
+
+    {
+        question:"Which language is used for styling?",
+        options:[
+            "Python",
+            "HTML",
+            "CSS",
+            "Java"
+        ],
+        answer:"CSS"
+    },
+
+    {
+        question:"Which framework is used in this project backend?",
+        options:[
+            "React",
+            "Flask",
+            "Django",
+            "Laravel"
+        ],
+        answer:"Django"
+    }
+
+];
+
+let currentQuestion = 0;
+
+let score = 0;
+
+function loadQuestion(){
+
+    const quiz = document.getElementById("quiz");
+
+    const q = questions[currentQuestion];
+
+    let html = `
+        <div class="question">
+            ${q.question}
+        </div>
+    `;
+
+    q.options.forEach(option => {
+
+        html += `
+            <div class="option"
+            onclick="selectAnswer('${option}')">
+
+                ${option}
+
+            </div>
+        `;
+    });
+
+    quiz.innerHTML = html;
+}
+
+function selectAnswer(option){
+
+    if(option === questions[currentQuestion].answer){
+
+        score++;
+    }
+
+    document.querySelectorAll(".option").forEach(opt => {
+
+        opt.style.pointerEvents = "none";
+    });
+}
+
+function nextQuestion(){
+
+    currentQuestion++;
+
+    if(currentQuestion < questions.length){
+
+        loadQuestion();
+
+    }else{
+
+        finishQuiz();
+
+    }
+}
+
+function finishQuiz(){
+
+    clearInterval(timerInterval);
+
+    const username = document.getElementById("username").value;
+
+    const leaderboard =
+    JSON.parse(localStorage.getItem("leaderboard")) || [];
+
+    leaderboard.push({
+        name:username,
+        score:score
+    });
+
+    localStorage.setItem(
+        "leaderboard",
+        JSON.stringify(leaderboard)
+    );
+
+    document.getElementById("quiz").innerHTML = `
+
+        <h2>Your Score: ${score}/${questions.length}</h2>
+
+        <p>Quiz Completed 🎉</p>
+
+        <button onclick="viewLeaderboard()">
+
+            View Leaderboard
+
+        </button>
+
+    `;
+}
+
+function viewLeaderboard(){
+
+    window.location.href = "leaderboard.html";
+}
+
+loadQuestion();
+
+
+// TIMER
+
+let timeLeft = 30;
+
+const timer = document.getElementById("timer");
+
+const timerInterval = setInterval(() => {
+
+    timeLeft--;
+
+    timer.innerHTML = "Time Left: " + timeLeft + "s";
+
+    if(timeLeft <= 0){
+
+        finishQuiz();
+    }
+
+},1000);
+
+</script>
+
+</body>
+
+</html>

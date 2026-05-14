@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>HireAI Chatbot</title>
+
+    <style>
+
+        body{
+            margin:0;
+            font-family:Arial;
+            background:#f4f4f4;
+        }
+
+        .container{
+            width:700px;
+            margin:30px auto;
+            background:white;
+            padding:20px;
+            border-radius:10px;
+            box-shadow:0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h1{
+            text-align:center;
+            color:#2952e3;
+        }
+
+        .chat-box{
+            height:400px;
+            overflow-y:auto;
+            border:1px solid #ccc;
+            padding:15px;
+            border-radius:10px;
+            background:#fafafa;
+        }
+
+        .message{
+            margin-top:15px;
+            padding:12px;
+            border-radius:10px;
+            width:fit-content;
+            max-width:80%;
+        }
+
+        .user{
+            background:#2952e3;
+            color:white;
+            margin-left:auto;
+        }
+
+        .bot{
+            background:#e4e4e4;
+        }
+
+        input{
+            width:75%;
+            padding:12px;
+            margin-top:20px;
+            font-size:16px;
+        }
+
+        button{
+            width:20%;
+            padding:12px;
+            background:#2952e3;
+            color:white;
+            border:none;
+            border-radius:5px;
+            cursor:pointer;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🤖 HireAI Chatbot</h1>
+
+    <div class="chat-box" id="chatBox">
+
+    </div>
+
+    <input
+    type="text"
+    id="userInput"
+    placeholder="Ask something...">
+
+    <button onclick="sendMessage()">
+        Send
+    </button>
+
+</div>
+
+<script>
+
+function sendMessage(){
+
+    let input =
+    document.getElementById("userInput");
+
+    let message = input.value.toLowerCase();
+
+    let chatBox =
+    document.getElementById("chatBox");
+
+    if(message == ""){
+        return;
+    }
+
+    // User Message
+
+    chatBox.innerHTML += `
+
+        <div class="message user">
+            ${message}
+        </div>
+
+    `;
+
+    let reply = "";
+
+    // AI Replies
+
+    if(message.includes("python")){
+
+        reply =
+        "Python is a powerful programming language.";
+
+    }
+
+    else if(message.includes("django")){
+
+        reply =
+        "Django is a Python backend framework.";
+
+    }
+
+    else if(message.includes("resume")){
+
+        reply =
+        "Keep your resume clean and project-based.";
+
+    }
+
+    else if(message.includes("interview")){
+
+        reply =
+        "Practice confidence and communication.";
+
+    }
+
+    else{
+
+        reply =
+        "I am HireAI assistant. Ask career questions.";
+
+    }
+
+    // Bot Message
+
+    setTimeout(function(){
+
+        chatBox.innerHTML += `
+
+            <div class="message bot">
+                ${reply}
+            </div>
+
+        `;
+
+        chatBox.scrollTop =
+        chatBox.scrollHeight;
+
+    },500);
+
+    input.value = "";
+
+}
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Upload Resume</title>
+
+    <style>
+
+        body{
+            font-family:Arial;
+            background:#f4f4f4;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            height:100vh;
+        }
+
+        .box{
+            background:white;
+            padding:40px;
+            border-radius:15px;
+            width:400px;
+            text-align:center;
+        }
+
+        input{
+            width:100%;
+            padding:12px;
+            margin-top:15px;
+        }
+
+        button{
+            width:100%;
+            padding:12px;
+            margin-top:20px;
+            background:#2d5be3;
+            color:white;
+            border:none;
+            border-radius:8px;
+            cursor:pointer;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="box">
+
+    <h1>Upload Resume</h1>
+
+    <form id="resumeForm">
+
+        <input type="text" id="name" placeholder="Your Name">
+
+        <input type="file" id="resume">
+
+        <button type="submit">Upload Resume</button>
+
+    </form>
+
+</div>
+
+<script>
+
+document.getElementById("resumeForm").addEventListener("submit", async function(e){
+
+    e.preventDefault();
+
+    const name = document.getElementById("name").value;
+
+    const resume = document.getElementById("resume").files[0];
+
+    const formData = new FormData();
+
+    formData.append("name", name);
+
+    formData.append("resume", resume);
+
+    const response = await fetch("http://127.0.0.1:8000/api/upload-resume/",{
+
+        method:"POST",
+
+        body:formData
+
+    });
+
+    const data = await response.json();
+
+    if(data.message){
+
+        alert(data.message);
+
+    }else{
+
+        alert("Upload failed");
+
+    }
+
+});
+
+</script>
+
+</body>
+
+</html>

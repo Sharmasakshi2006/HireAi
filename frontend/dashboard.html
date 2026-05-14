@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Dashboard - HireAI</title>
+
+    <style>
+
+        body{
+            font-family:Arial;
+            background:#f4f4f4;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            height:100vh;
+        }
+
+        .box{
+            background:white;
+            padding:40px;
+            border-radius:15px;
+            width:450px;
+            text-align:center;
+        }
+
+        button{
+            width:100%;
+            padding:12px;
+            margin-top:15px;
+            background:#2d5be3;
+            color:white;
+            border:none;
+            border-radius:8px;
+            cursor:pointer;
+        }
+
+        a{
+            text-decoration:none;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="box">
+
+    <h1>Welcome to HireAI 🚀</h1>
+
+    <h2>Student Dashboard</h2>
+
+    <p id="welcomeText"></p>
+
+    <a href="resume.html">
+
+        <button>Upload Resume</button>
+
+    </a>
+    </a>
+
+<a href="interview.html">
+
+    <button>Interview Questions</button>
+
+</a>
+ <a href="quiz.html">
+
+    <button>Start Quiz</button>
+
+</a>
+   <a href="resume-analyzer.html">
+
+    <button>AI Resume Analyzer</button>
+
+</a> 
+
+<a href="career.html">
+    <button>Career Recommendation</button>
+</a>
+
+<a href="progress.html">
+    <button>Progress Tracker</button>
+</a>
+
+<a href="voice-interview.html">
+    <button>Voice AI Interview</button>
+</a>
+
+<a href="chatbot.html">
+    <button>AI Chatbot</button>
+</a>
+<button onclick="logout()">Logout</button>
+
+</div>
+
+<script>
+
+const email = localStorage.getItem("userEmail");
+
+document.getElementById("welcomeText").innerHTML =
+"Logged in as: <b>" + email + "</b>";
+
+function logout(){
+
+    localStorage.removeItem("userEmail");
+
+    window.location.href = "login.html";
+}
+
+</script>
+
+</body>
+
+</html>

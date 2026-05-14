@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>AI Career Recommendation</title>
+
+    <style>
+
+        body{
+            margin:0;
+            font-family:Arial;
+            background:#f4f4f4;
+        }
+
+        .container{
+            width:700px;
+            margin:50px auto;
+            background:white;
+            padding:40px;
+            border-radius:10px;
+            box-shadow:0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h1{
+            text-align:center;
+            color:#2952e3;
+        }
+
+        textarea{
+            width:100%;
+            height:200px;
+            padding:15px;
+            margin-top:20px;
+            font-size:16px;
+        }
+
+        button{
+            width:100%;
+            padding:14px;
+            margin-top:20px;
+            background:#2952e3;
+            color:white;
+            border:none;
+            border-radius:8px;
+            font-size:18px;
+            cursor:pointer;
+        }
+
+        .result{
+            margin-top:30px;
+            background:#f1f1f1;
+            padding:20px;
+            border-radius:10px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>AI Career Recommendation 🚀</h1>
+
+    <textarea id="skills"
+    placeholder="Enter your skills..."></textarea>
+
+    <button onclick="recommendCareer()">
+        Get Career Recommendation
+    </button>
+
+    <div class="result" id="result"></div>
+
+</div>
+
+<script>
+
+function recommendCareer(){
+
+    let text =
+    document.getElementById("skills").value.toLowerCase();
+
+    let career = "";
+
+    let advice = "";
+
+    if(
+        text.includes("python")
+        &&
+        text.includes("django")
+    ){
+
+        career = "Backend Developer";
+
+        advice =
+        "Learn APIs, databases, and deployment.";
+
+    }
+
+    else if(
+        text.includes("html")
+        &&
+        text.includes("javascript")
+    ){
+
+        career = "Frontend Developer";
+
+        advice =
+        "Learn React.js and UI/UX design.";
+
+    }
+
+    else if(
+        text.includes("python")
+        &&
+        text.includes("machine learning")
+    ){
+
+        career = "AI Engineer";
+
+        advice =
+        "Learn deep learning and AI projects.";
+
+    }
+
+    else{
+
+        career = "Software Developer";
+
+        advice =
+        "Improve coding and project skills.";
+
+    }
+
+    document.getElementById("result").innerHTML = `
+
+        <h2>Recommended Career:</h2>
+
+        <h1 style="color:green;">
+            ${career}
+        </h1>
+
+        <h3>Advice:</h3>
+
+        <p>${advice}</p>
+
+    `;
+
+}
+
+</script>
+
+</body>
+
+</html>
